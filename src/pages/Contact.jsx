@@ -3,7 +3,7 @@ import { Mail, MapPin, ArrowRight, CheckCircle2, LoaderCircle, } from "lucide-re
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { IoIosMailUnread } from "react-icons/io";
 import { useTheme } from "../context/Themecontext.jsx";
-import { SectionHeader } from "../components/Ui.jsx";
+import { SectionHeader } from "../components/Elements.jsx";
 import contactService from "../appwrite/contactService.js";
 
 export default function Contact() {

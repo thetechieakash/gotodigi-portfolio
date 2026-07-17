@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTheme } from '../context/Themecontext.jsx';
-import { SectionHeader, Skeleton } from '../components/ui.jsx';
+import { SectionHeader, Skeleton } from '../components/Elements.jsx';
 
 const DEVELOPER_FAQS = [
   {
@@ -79,7 +79,7 @@ function FaqSkeleton({ dark }) {
   )
 }
 
-export default function FAQ() {
+export default function Faq() {
   const { dark } = useTheme();
   const [loading] = useState(false);
   const [error] = useState(null);

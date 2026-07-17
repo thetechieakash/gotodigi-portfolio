@@ -1,33 +1,9 @@
 import { useParams, Link } from 'react-router-dom'
 import { useTheme } from '../context/Themecontext.jsx'
-import { Skeleton } from '../components/ui.jsx'
+import { Skeleton } from '../components/Elements.jsx'
 
 /* Demo post content used when API isn't connected */
-const DEMO_POST = {
-  title: 'Setting up Laravel + React in 2024',
-  date: '2024-12-01',
-  readTime: '5 min',
-  tags: ['Laravel', 'React', 'Vite'],
-  content: `
-Getting Laravel and React to work together smoothly is one of those things that takes a bit of config upfront, but once it's done, the DX is great.
 
-## The two approaches
-
-You either go full decoupled — Laravel as a pure API, React as its own Vite app — or you use Inertia.js for a monorepo approach. I prefer the decoupled route for most projects.
-
-## Laravel setup
-
-Install a fresh Laravel app and update your .env to configure CORS via the \`config/cors.php\` file. For auth, I reach for Laravel Sanctum.
-
-## React + Vite setup
-
-Create your Vite+React project, add Axios, set up a base instance pointing at your Laravel URL. Store your base URL in \`.env.local\` as \`VITE_API_URL\`.
-
-## Final thoughts
-
-It takes about 30 minutes to get set up correctly. After that, the two apps are completely independent and easy to deploy separately.
-  `.trim(),
-}
 
 function PostSkeleton({ dark }) {
   return (

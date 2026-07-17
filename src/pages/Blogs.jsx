@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/Themecontext.jsx';
-import { SectionHeader } from '../components/ui.jsx';
+import { SectionHeader } from '../components/Elements.jsx';
 import blogService from '../appwrite/blogService.js';
 import storageService from '../appwrite/storageService.js';
 import { useEffect, useState } from 'react';

@@ -4,7 +4,7 @@ import Blogs from "./Blogs"
 import BlogDetail from "./BlogDetail"
 import Portfolio from "./Portfolio"
 import Testimonial from "./Testimonial"
-import FAQ from "./FAQ"
+import Faq from "./Faq"
 import Contact from "./Contact"
 
 export {
@@ -14,6 +14,6 @@ export {
     BlogDetail,
     Portfolio,
     Testimonial,
-    FAQ,
+    Faq,
     Contact
 }

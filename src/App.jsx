@@ -10,7 +10,7 @@ import store from './store/store.js';
 
 import { ThemeProvider } from './context/Themecontext.jsx'
 import { PublicLayout, AdminLayout, Protected } from "./layouts";
-import { Home, About, Blogs, BlogDetail, Portfolio, Testimonial, FAQ, Contact } from "./pages/index.js";
+import { Home, About, Blogs, BlogDetail, Portfolio, Testimonial, Faq, Contact } from "./pages/index.js";
 import { Login, Dashboard, Posts, CreatePost, EditPost, AboutSettings, Messages, Projects, CreateProject, EditProject } from "./pages/admin/index.js";
 
 /* Scroll to top on route change */
@@ -66,7 +66,7 @@ function Layout() {
                     <Route path="/blogs/:slug" element={<BlogDetail />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/testimonial" element={<Testimonial />} />
-                    <Route path="/faq" element={<FAQ />} />
+                    <Route path="/faq" element={<Faq />} />
                 </Route>
                 <Route path="/admin">
                     <Route path="login" element={
