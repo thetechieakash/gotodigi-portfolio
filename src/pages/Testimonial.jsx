@@ -1,5 +1,5 @@
 import { useTheme } from '../context/Themecontext.jsx';
-import { SectionHeader, Skeleton } from '../components/Ui.jsx';
+import { SectionHeader, Skeleton } from '../components/ui.jsx';
 import { useState } from 'react'
 
 const DETAILED_TESTIMONIALS = [

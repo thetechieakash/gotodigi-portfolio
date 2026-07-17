@@ -3,7 +3,7 @@ import SwipingText from '../components/SwipingText';
 import { Link } from 'react-router-dom';
 import { MoveUpRight, MoveRight } from 'lucide-react';
 import { useTheme } from '../context/Themecontext.jsx';
-import { SectionHeader } from '../components/Ui.jsx'
+import { SectionHeader } from '../components/ui.jsx'
 import { services, projects, testimonials } from '../constant';
 import { motion } from "framer-motion";
 

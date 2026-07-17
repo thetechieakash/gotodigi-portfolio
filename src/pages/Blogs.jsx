@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTheme } from '../context/Themecontext.jsx';
-import { SectionHeader, ErrorMsg } from '../components/Ui.jsx';
+import { SectionHeader, ErrorMsg } from '../components/ui.jsx';
 import blogService from '../appwrite/blogService.js';
 import storageService from '../appwrite/storageService.js';
 import { useEffect, useState } from 'react';

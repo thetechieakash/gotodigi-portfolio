@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTheme } from '../context/Themecontext.jsx';
-import { SectionHeader, Skeleton } from '../components/Ui.jsx';
+import { SectionHeader, Skeleton } from '../components/ui.jsx';
 
 const DEVELOPER_FAQS = [
   {

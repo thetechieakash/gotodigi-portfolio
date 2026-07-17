@@ -10,7 +10,7 @@ import {
     Download,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { SectionHeader } from "../components/Ui.jsx";
+import { SectionHeader } from "../components/ui.jsx";
 
 const STATS = [
     { value: "4+", label: "Years Experience" },

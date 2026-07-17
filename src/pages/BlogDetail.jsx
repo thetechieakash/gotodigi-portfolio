@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import { useTheme } from '../context/Themecontext.jsx'
-import { Skeleton } from '../components/Ui.jsx'
+import { Skeleton } from '../components/ui.jsx'
 
 /* Demo post content used when API isn't connected */
 const DEMO_POST = {
