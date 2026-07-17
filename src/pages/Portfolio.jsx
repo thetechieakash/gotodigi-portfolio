@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../context/Themecontext.jsx'
-import { SectionHeader, Skeleton, ErrorMsg, Tag } from '../components/ui.jsx'
+import { SectionHeader } from '../components/ui.jsx'
 import Thumbnail from '../components/Thumbnail.jsx';
 import projectService from '../appwrite/projectService.js';
 import storageService from '../appwrite/storageService.js';
@@ -175,13 +175,13 @@ export default function Portfolio() {
 
     return (
         <>
-        {projects.length > 0 && (
-    <SectionHeader
-        eyebrow="// Portfolio"
-        title="Selected Work."
-        subtitle="A collection of products, SaaS platforms, mobile applications, dashboards, and experiments I've designed and developed."
-    />
-)}
+            {projects.length > 0 && (
+                <SectionHeader
+                    eyebrow="// Portfolio"
+                    title="Selected Work."
+                    subtitle="A collection of products, SaaS platforms, mobile applications, dashboards, and experiments I've designed and developed."
+                />
+            )}
 
             {/* Projects */}
 
