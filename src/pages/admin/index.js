@@ -1,13 +1,13 @@
-import Login from "./Login";
-import Dashboard from "./Dashboard";
-import CreatePost from "./CreatePost";
-import Posts from "./Posts";
-import EditPost from "./EditPost";
-import AboutSettings from "./AboutSettings";
-import Messages from "./Messages";
-import Projects from "./Projects";
-import CreateProject from "./CreateProject";
-import EditProject from "./EditProject";
+import Login from "./Login.jsx";
+import Dashboard from "./Dashboard.jsx";
+import CreatePost from "./CreatePost.jsx";
+import Posts from "./Posts.jsx";
+import EditPost from "./EditPost.jsx";
+import AboutSettings from "./AboutSettings.jsx";
+import Messages from "./Messages.jsx";
+import Projects from "./Projects.jsx";
+import CreateProject from "./CreateProject.jsx";
+import EditProject from "./EditProject.jsx";
 
 export {
     Login,

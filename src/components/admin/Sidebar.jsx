@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Sun, Moon, Menu, X, LayoutDashboard, FileText, PlusSquare, FolderKanban, MessageSquare, Mail, Settings, UserCircle2, } from "lucide-react";
-import LogoutBtn from "./LogoutBtn";
-import { useTheme } from "../../context/Themecontext";
-import blogService from "../../appwrite/blogService";
+import LogoutBtn from "./LogoutBtn.jsx";
+import { useTheme } from "../../context/Themecontext.jsx";
+import blogService from "../../appwrite/blogService.js";
 
 
 export default function Sidebar() {

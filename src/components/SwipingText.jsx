@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
-import { TEXTS } from '../constant'
+import { useEffect, useState } from 'react';
+import { TEXTS } from '../constant';
 
 export default function SwipingText() {
     const [index, setIndex] = useState(0)

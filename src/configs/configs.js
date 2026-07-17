@@ -8,7 +8,7 @@ const configs = {
         articles:'articles',
         contacts:'contacts',
         projects:'projects',
-    }
+    },
 };
 
 export default configs;

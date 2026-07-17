@@ -7,7 +7,7 @@ import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import TextAlign from "@tiptap/extension-text-align";
 
-import Toolbar from "./Toolbar";
+import Toolbar from "./Toolbar.jsx";
 
 import "./editor.css";
 

@@ -1,11 +1,11 @@
-import Home from "./Home"
-import About from "./About"
-import Blogs from "./Blogs"
-import BlogDetail from "./BlogDetail"
-import Portfolio from "./Portfolio"
-import Testimonial from "./Testimonial"
-import Faq from "./Faq"
-import Contact from "./Contact"
+import Home from "./Home.jsx"
+import About from "./About.jsx"
+import Blogs from "./Blogs.jsx"
+import BlogDetail from "./BlogDetail.jsx"
+import Portfolio from "./Portfolio.jsx"
+import Testimonial from "./Testimonial.jsx"
+import Faq from "./Faq.jsx"
+import Contact from "./Contact.jsx"
 
 export {
     Home,

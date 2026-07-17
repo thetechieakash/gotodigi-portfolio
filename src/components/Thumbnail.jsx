@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ImageIcon } from "lucide-react";
-import storageService from "../appwrite/storageService";
+import storageService from "../appwrite/storageService.js";
 
 export default function Thumbnail({
     fileId,

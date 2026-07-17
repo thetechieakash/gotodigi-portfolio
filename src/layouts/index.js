@@ -1,6 +1,6 @@
-import PublicLayout from "./PublicLayout";
-import AdminLayout from "./AdminLayout";
-import Protected from "./Protected";
+import PublicLayout from "./PublicLayout.jsx";
+import AdminLayout from "./AdminLayout.jsx";
+import Protected from "./Protected.jsx";
 
 export {
     PublicLayout,
