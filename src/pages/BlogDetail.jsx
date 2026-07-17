@@ -1,6 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
 import { useTheme } from '../context/Themecontext.jsx'
-import { useFetch } from '../hooks/usefetch.js'
 import { Skeleton } from '../components/Ui.jsx'
 
 /* Demo post content used when API isn't connected */
@@ -47,8 +46,6 @@ function PostSkeleton({ dark }) {
 export default function BlogDetail() {
   const { slug } = useParams()
   const { dark } = useTheme()
-  const { data, loading, error } = useFetch(getPost, slug)
-  const post = data?.post || (error ? DEMO_POST : null)
 
   if (loading && !post) return (
     <main className="pt-24 pb-20">

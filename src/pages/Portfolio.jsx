@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../context/Themecontext.jsx'
-import { useFetch } from '../hooks/useFetch'
 import { SectionHeader, Skeleton, ErrorMsg, Tag } from '../components/UI'
 import Thumbnail from '../components/Thumbnail.jsx';
 import projectService from '../appwrite/projectService.js';
@@ -153,7 +152,6 @@ function ProjectCardSkeleton({ dark }) {
 }
 
 export default function Portfolio() {
-    // const { data, loading, error } = useFetch(getProjects)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null);
     const [projects, setProjects] = useState([])
