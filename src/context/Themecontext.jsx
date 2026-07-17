@@ -11,6 +11,17 @@ export function ThemeProvider({ children }) {
     useEffect(() => {
         document.body.classList.toggle('dark', dark)
         localStorage.setItem('theme', dark ? 'dark' : 'light')
+        const themeColor = dark ? "#0a0a0a" : "#ffffff";
+
+        let meta = document.querySelector('meta[name="theme-color"]');
+
+        if (!meta) {
+            meta = document.createElement("meta");
+            meta.name = "theme-color";
+            document.head.appendChild(meta);
+        }
+
+        meta.content = themeColor;
     }, [dark])
 
     return (

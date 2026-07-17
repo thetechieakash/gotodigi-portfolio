@@ -36,8 +36,6 @@ function Home() {
             <motion.main initial="hidden"
                 animate="visible"
                 variants={stagger}
-                style={{ fontFamily: 'Space Grotesk, sans-serif' }}
-                className='mx-4 mt-16 md:mt-40'
                 style={{ fontFamily: 'Space Grotesk, sans-serif' }}>
                 <div className='md:flex justify-center gap-10'>
                     <motion.div variants={fadeUp} className='mb-4'>
@@ -83,7 +81,7 @@ function Home() {
             </motion.main>
             {/* Services section  */}
             <main className="py-24">
-                <div className="max-w-5xl mx-auto px-5">
+                <div className="max-w-5xl mx-auto">
                     <SectionHeader
                         title="Services"
                         subtitle="From idea to deployment, I help businesses build scalable digital products and modern web experiences."
@@ -122,7 +120,7 @@ function Home() {
             </main>
             {/* Portfolio Section */}
             <section className="py-24">
-                <div className="max-w-5xl mx-auto px-5">
+                <div className="max-w-5xl mx-auto">
 
                     <SectionHeader
                         title="Selected Work"
@@ -186,7 +184,7 @@ function Home() {
             </section>
             {/* Testimonials */}
             <section className="py-24 overflow-hidden">
-                <div className="max-w-5xl mx-auto px-5">
+                <div className="max-w-5xl mx-auto">
 
                     <SectionHeader
                         title="What Clients Say"

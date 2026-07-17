@@ -7,7 +7,7 @@ function PublicLayout() {
         <>
             <Navigation />
             <main className="mx-4 mt-16 md:mt-40">
-                <div className="mx-auto max-w-6xl px-5">
+                <div className="mx-auto max-w-6xl md:px-5">
                     <Outlet />
                 </div>
             </main>

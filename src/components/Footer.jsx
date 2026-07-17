@@ -50,7 +50,7 @@ export default function Footer() {
                 </div>
 
                 {/* Footer Links */}
-                <div className="grid md:grid-cols-4 gap-10 py-16">
+                <div className="grid md:grid-cols-5 gap-5 py-16">
 
                     <div className="md:col-span-2">
                         <h3
@@ -69,7 +69,7 @@ export default function Footer() {
 
                     <div>
                         <h4 className="font-semibold mb-4">
-                            Navigation
+                            Links
                         </h4>
 
                         <div className="flex flex-col gap-3 text-black/60 dark:text-white/60">
@@ -83,6 +83,26 @@ export default function Footer() {
 
                             <Link to="/portfolio" className="hover:text-accent transition-colors">
                                 Portfolio
+                            </Link>
+
+                            <Link to="/contact" className="hover:text-accent transition-colors">
+                                Blogs
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 className="font-semibold mb-4">
+                            Links
+                        </h4>
+
+                        <div className="flex flex-col gap-3 text-black/60 dark:text-white/60">
+                            <Link to="/testimonials" className="hover:text-accent transition-colors">
+                                Testimonials
+                            </Link>
+
+                            <Link to="/faq" className="hover:text-accent transition-colors">
+                                FAQ
                             </Link>
 
                             <Link to="/contact" className="hover:text-accent transition-colors">
@@ -123,7 +143,7 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="border-t border-black/10 dark:border-white/10 pt-6">
+                <div className="border-t border-black/10 dark:border-white/10 pt-6 mb-16 md:mb-0">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4">
 
                         <p className="text-sm text-black/50 dark:text-white/50">
