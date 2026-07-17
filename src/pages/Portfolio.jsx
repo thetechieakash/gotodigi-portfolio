@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTheme } from '../context/Themecontext.jsx'
-import { SectionHeader, Skeleton, ErrorMsg, Tag } from '../components/UI'
+import { SectionHeader, Skeleton, ErrorMsg, Tag } from '../components/UI.jsx'
 import Thumbnail from '../components/Thumbnail.jsx';
 import projectService from '../appwrite/projectService.js';
 import storageService from '../appwrite/storageService.js';

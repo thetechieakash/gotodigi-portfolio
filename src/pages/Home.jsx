@@ -1,10 +1,10 @@
-import React from 'react'
-import SwipingText from '../components/SwipingText'
-import { Link } from 'react-router-dom'
-import { MoveUpRight, MoveRight } from 'lucide-react'
-import { useTheme } from '../context/Themecontext'
-import { SectionHeader } from '../components/Ui'
-import { services, projects, testimonials } from '../constant'
+import React from 'react';
+import SwipingText from '../components/SwipingText';
+import { Link } from 'react-router-dom';
+import { MoveUpRight, MoveRight } from 'lucide-react';
+import { useTheme } from '../context/Themecontext.jsx';
+import { SectionHeader } from '../components/Ui.jsx'
+import { services, projects, testimonials } from '../constant';
 import { motion } from "framer-motion";
 
 const fadeUp = {
