@@ -6,6 +6,7 @@ import Portfolio from "./Portfolio.jsx";
 import Testimonial from "./Testimonial.jsx";
 import Contact from "./Contact.jsx";
 import Qa from "./Qa.jsx";
+import NotFound from "./NotFound.jsx";
 
 export {
     Home,
@@ -16,4 +17,5 @@ export {
     Testimonial,
     Contact,
     Qa,
+    NotFound,
 }
