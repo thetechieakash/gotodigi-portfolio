@@ -1,236 +1,280 @@
-import {
-    Save,
-    Plus,
-    Trash2,
-    ImageIcon,
-} from "lucide-react";
+import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
+import { useTheme } from '../../context/Themecontext.jsx';
+import { updateProfile } from '../../store/authSlice.js';
+import { Save, User, Mail, MapPinPlusInside, Briefcase, FileText } from 'lucide-react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import storageService from '../../appwrite/storageService.js';
 
-import { useForm, useFieldArray } from "react-hook-form";
-import Editor from "../../components/editor/Editor";
+// --- Reusable Input Component ---
+const FormInput = ({ label, icon: Icon, type = "text", placeholder, name, register, rules, error, dark, containerClass = "" }) => (
+    <div className={`space-y-2 ${containerClass}`}>
+        <label className={`text-xs font-semibold tracking-wide uppercase ${dark ? 'text-neutral-400' : 'text-neutral-500'}`}>
+            {label}
+        </label>
+        <div className="relative">
+            <Icon size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500" />
+            <input
+                type={type}
+                {...register(name, rules)}
+                className={`w-full pl-11 pr-4 py-3 rounded-xl border text-sm transition-all outline-none ${
+                    dark
+                        ? 'bg-neutral-900/50 border-neutral-800 focus:border-neutral-700 text-white'
+                        : 'bg-neutral-50 border-neutral-200 focus:border-neutral-400 text-neutral-900'
+                }`}
+                placeholder={placeholder}
+            />
+        </div>
+        {error && <p className="text-xs font-medium text-red-500">{error.message}</p>}
+    </div>
+);
+
+// --- Reusable Textarea Component ---
+const FormTextarea = ({ label, icon: Icon, placeholder, name, register, rules, error, dark, containerClass = "" }) => (
+    <div className={`space-y-2 ${containerClass}`}>
+        <label className={`text-xs font-semibold tracking-wide uppercase ${dark ? 'text-neutral-400' : 'text-neutral-500'}`}>
+            {label}
+        </label>
+        <div className="relative">
+            <Icon size={16} className="absolute left-4 top-4 text-neutral-500" />
+            <textarea
+                rows={4}
+                {...register(name, rules)}
+                className={`w-full pl-11 pr-4 py-3 rounded-xl border text-sm transition-all outline-none resize-none ${
+                    dark
+                        ? 'bg-neutral-900/50 border-neutral-800 focus:border-neutral-700 text-white'
+                        : 'bg-neutral-50 border-neutral-200 focus:border-neutral-400 text-neutral-900'
+                }`}
+                placeholder={placeholder}
+            />
+        </div>
+        {error && <p className="text-xs font-medium text-red-500">{error.message}</p>}
+    </div>
+);
 
 export default function AboutSettings() {
-    const {
-        register,
-        control,
-        handleSubmit,
-    } = useForm({
+    const { dark } = useTheme();
+    const dispatch = useDispatch();
+    const [resumeName, setResumeName] = useState("");
+    const [removeResume, setRemoveResume] = useState(false);
+    const adminData = useSelector((state) => state.auth.userData);
+
+    const { register, handleSubmit, watch, setValue, formState: { errors, isSubmitting } } = useForm({
         defaultValues: {
-            title: "",
-            subtitle: "",
-            resume: "",
-            bio: "",
-
-            frontend: ["React", "Tailwind"],
-            backend: ["Node.js", "Laravel"],
-
-            timeline: [
-                {
-                    year: "",
-                    title: "",
-                    description: "",
-                },
-            ],
-
-            social: {
-                github: "",
-                linkedin: "",
-                website: "",
-                email: "",
-            },
-        },
+            name: adminData?.name || '',
+            email: adminData?.email || '',
+            address: adminData?.address || '',
+            github: adminData?.github || '',
+            linkedin: adminData?.linkedin || '',
+            role: adminData?.role || '',
+            bio: adminData?.bio || '',
+            resume: adminData?.resume || null,
+        }
     });
 
-    const {
-        fields,
-        append,
-        remove,
-    } = useFieldArray({
-        control,
-        name: "timeline",
-    });
+    const resume = watch("resume");
 
-    const submit = (data) => {
-        console.log(data);
+    useEffect(() => {
+        if (adminData?.resume) {
+            setResumeName("Current Resume.pdf");
+        }
+    }, [adminData]);
+
+    useEffect(() => {
+        if (resume?.length) {
+            setResumeName(resume[0].name);
+            setRemoveResume(false);
+        }
+    }, [resume]);
+
+    const onSubmit = async (data) => {
+        try {
+            let resumeId = adminData?.resume || null;
+
+            // 1. If explicit removal requested OR a brand new file is replacing the old one:
+            if ((removeResume || data.resume?.length) && adminData?.resume) {
+                await storageService.deleteFile(adminData.resume);
+                resumeId = null;
+            }
+
+            // 2. If a new file is uploaded:
+            if (data.resume?.length) {
+                const file = await storageService.uploadFile(data.resume[0]);
+                resumeId = file.$id;
+            }
+
+            // 3. CRITICAL FIXED: Mutate the copy data payload before sending to state/database
+            const updatedProfileData = {
+                ...data,
+                resume: resumeId // replaces the FileList object with the Appwrite string ID
+            };
+
+            // await databaseService.updateAdminProfile(adminData.$id, updatedProfileData);
+            dispatch(updateProfile(updatedProfileData));
+            
+            // Reset state flags upon successful completion
+            setRemoveResume(false);
+            alert('Profile layout synchronized successfully!');
+        } catch (error) {
+            console.error('Update baseline failed:', error);
+        }
     };
 
     return (
-        <main className="mx-auto max-w-6xl space-y-8">
-
+        <main className='space-y-8'>
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-4xl font-bold">
-                        About Page
-                    </h1>
-
-                    <p className="text-black/60 dark:text-white/60 mt-2">
-                        Update your public profile.
+                    <h1 className="text-4xl font-bold">Account Settings</h1>
+                    <p className="mt-2 text-black/60 dark:text-white/60">
+                        Configure your public-facing persona details shared across client modules.
                     </p>
                 </div>
-
-                <button
-                    onClick={handleSubmit(submit)}
-                    className="flex items-center gap-2 rounded-2xl bg-black px-6 py-3 text-white dark:bg-white dark:text-black"
-                >
-                    <Save size={18} />
-                    Save Changes
-                </button>
             </div>
 
-            <div className="space-y-6 rounded-3xl border border-black/10 bg-white p-8 dark:border-white/10 dark:bg-dark-card">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <div className={`p-8 rounded-3xl border ${dark ? 'border-neutral-800 bg-[#0c0c0e]' : 'border-neutral-200 bg-white'}`}>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                <h2 className="text-xl font-semibold">
-                    Profile
-                </h2>
-
-                <div className="grid gap-6 md:grid-cols-2">
-
-                    <div>
-                        <label className="mb-2 block text-sm">
-                            Headline
-                        </label>
-
-                        <input
-                            {...register("title")}
-                            className="w-full rounded-2xl border border-black/10 px-5 py-4"
-                        />
-                    </div>
-
-                    <div>
-                        <label className="mb-2 block text-sm">
-                            Resume URL
-                        </label>
-
-                        <input
-                            {...register("resume")}
-                            className="w-full rounded-2xl border border-black/10 px-5 py-4"
-                        />
-                    </div>
-
-                </div>
-
-                <div>
-                    <label className="mb-2 block text-sm">
-                        Subtitle
-                    </label>
-
-                    <textarea
-                        rows={3}
-                        {...register("subtitle")}
-                        className="w-full rounded-2xl border border-black/10 p-4"
-                    />
-                </div>
-
-                <div>
-                    <label className="mb-2 block text-sm">
-                        Avatar
-                    </label>
-
-                    <label className="flex h-56 cursor-pointer items-center justify-center rounded-3xl border-2 border-dashed border-black/10">
-
-                        <div className="text-center">
-
-                            <ImageIcon
-                                className="mx-auto mb-4"
-                                size={36}
-                            />
-
-                            Upload Image
-
-                        </div>
-
-                        <input
-                            type="file"
-                            hidden
+                        <FormInput
+                            label="Display Name"
+                            icon={User}
+                            name="name"
+                            register={register}
+                            rules={{ required: 'Name attribute is mandatory' }}
+                            error={errors.name}
+                            dark={dark}
+                            placeholder="e.g. Akash Halder"
                         />
 
-                    </label>
-                </div>
+                        <FormInput
+                            label="Email"
+                            type="email"
+                            icon={Mail}
+                            name="email"
+                            register={register}
+                            rules={{ required: 'Email attribute is mandatory' }}
+                            error={errors.email}
+                            dark={dark}
+                            placeholder="e.g. akash@example.com"
+                        />
 
-            </div>
+                        <FormInput
+                            label="Address"
+                            icon={MapPinPlusInside}
+                            name="address"
+                            register={register}
+                            dark={dark}
+                            placeholder="e.g. West Bengal, India"
+                            containerClass="md:col-span-2"
+                        />
 
-            <div className="rounded-3xl border border-black/10 bg-white p-8 dark:border-white/10 dark:bg-dark-card">
+                        <FormInput
+                            label="Github"
+                            icon={FaGithub}
+                            name="github"
+                            register={register}
+                            dark={dark}
+                            placeholder="e.g. https://github.com/thetechieakash"
+                        />
 
-                <h2 className="mb-6 text-xl font-semibold">
-                    Biography
-                </h2>
+                        <FormInput
+                            label="Linkedin"
+                            icon={FaLinkedin}
+                            name="linkedin"
+                            register={register}
+                            dark={dark}
+                            placeholder="e.g. https://www.linkedin.com/in/techieakash/"
+                        />
 
-                <Editor />
+                        <FormInput
+                            label="Professional Role"
+                            icon={Briefcase}
+                            name="role"
+                            register={register}
+                            rules={{ required: 'Role configuration is required' }}
+                            error={errors.role}
+                            dark={dark}
+                            placeholder="e.g. Full Stack Developer"
+                        />
 
-            </div>
+                        <FormTextarea
+                            label="Public Biography Narrative"
+                            icon={FileText}
+                            name="bio"
+                            register={register}
+                            dark={dark}
+                            placeholder="Tell clients details regarding your core stack operations, strategies, and methodologies..."
+                            containerClass="md:col-span-2"
+                        />
 
-            <div className="rounded-3xl border border-black/10 bg-white p-8 dark:border-white/10 dark:bg-dark-card">
+                        <div className="md:col-span-2 space-y-2">
+                            <label className={`text-xs font-semibold tracking-wide uppercase ${dark ? "text-neutral-400" : "text-neutral-500"}`}>
+                                Resume (PDF)
+                            </label>
 
-                <div className="mb-6 flex items-center justify-between">
+                            <label className={`flex h-44 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed transition ${
+                                dark ? "border-neutral-800 bg-neutral-900/50 hover:border-neutral-700" : "border-neutral-300 bg-neutral-50 hover:border-neutral-500"
+                            }`}>
+                                <FileText size={42} className="mb-4 text-red-500" />
+                                <p className="font-medium">Upload Resume</p>
+                                <p className="mt-1 text-xs text-neutral-500">PDF only • Maximum 5 MB</p>
 
-                    <h2 className="text-xl font-semibold">
-                        Experience Timeline
-                    </h2>
-
-                    <button
-                        type="button"
-                        onClick={() =>
-                            append({
-                                year: "",
-                                title: "",
-                                description: "",
-                            })
-                        }
-                        className="flex items-center gap-2 rounded-xl border px-4 py-2"
-                    >
-                        <Plus size={16} />
-                        Add
-                    </button>
-
-                </div>
-
-                <div className="space-y-5">
-
-                    {fields.map((field, index) => (
-
-                        <div
-                            key={field.id}
-                            className="rounded-2xl border border-black/10 p-5"
-                        >
-
-                            <div className="grid gap-4 md:grid-cols-3">
+                                {resumeName && (
+                                    <p className="mt-3 text-sm font-medium text-green-500">{resumeName}</p>
+                                )}
 
                                 <input
-                                    placeholder="Year"
-                                    {...register(`timeline.${index}.year`)}
-                                    className="rounded-xl border px-4 py-3"
+                                    hidden
+                                    type="file"
+                                    accept=".pdf"
+                                    {...register("resume", {
+                                        validate: {
+                                            pdf: (files) => !files?.length || files[0].type === "application/pdf" || "Only PDF files are allowed",
+                                            size: (files) => !files?.length || files[0].size <= 5 * 1024 * 1024 || "Maximum file size is 5MB",
+                                        },
+                                    })}
                                 />
+                            </label>
 
-                                <input
-                                    placeholder="Job Title"
-                                    {...register(`timeline.${index}.title`)}
-                                    className="rounded-xl border px-4 py-3"
-                                />
+                            {errors.resume && (
+                                <p className="text-xs text-red-500">{errors.resume.message}</p>
+                            )}
 
+                            {resumeName && (
                                 <button
                                     type="button"
-                                    onClick={() => remove(index)}
-                                    className="flex items-center justify-center rounded-xl bg-red-50 text-red-500"
+                                    onClick={() => {
+                                        setResumeName("");
+                                        setValue("resume", null);
+                                        setRemoveResume(true);
+                                    }}
+                                    className="w-full rounded-xl border border-red-200 bg-red-50 py-3 text-sm font-medium text-red-600 transition hover:bg-red-100 dark:border-red-500/20 dark:bg-red-500/10 dark:text-red-400"
                                 >
-                                    <Trash2 size={18} />
+                                    Remove Resume
                                 </button>
-
-                            </div>
-
-                            <textarea
-                                rows={3}
-                                placeholder="Description"
-                                {...register(`timeline.${index}.description`)}
-                                className="mt-4 w-full rounded-xl border p-4"
-                            />
-
+                            )}
                         </div>
 
-                    ))}
-
+                    </div>
                 </div>
 
-            </div>
-
+                {/* Action Panel Dock */}
+                <div className="flex justify-end">
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className={`inline-flex items-center gap-2 text-sm font-medium px-6 py-3 rounded-full transition-all tracking-wide shadow-md border ${
+                            dark
+                                ? 'bg-white text-black border-white hover:bg-neutral-200 disabled:bg-neutral-700'
+                                : 'bg-black text-white border-black hover:bg-neutral-800 disabled:bg-neutral-400'
+                        }`}
+                    >
+                        <Save size={16} />
+                        <span>{isSubmitting ? 'Syncing...' : 'Save Changes'}</span>
+                    </button>
+                </div>
+            </form>
         </main>
     );
 }

@@ -40,7 +40,7 @@ export default function Sidebar() {
         { title: "Articles", path: "/admin/posts", icon: FileText, badge: badgeCounts.articles },
         { title: "Projects", path: "/admin/projects", icon: FolderKanban, },
         { title: "Messages", path: "/admin/messages", icon: Mail, },
-        { title: "Testimonials", path: "/admin/testimonials", icon: MessageSquare, },
+        // { title: "Testimonials", path: "/admin/testimonials", icon: MessageSquare, },
         { title: "Settings", path: "/admin/settings", icon: Settings, },
     ];
     return (

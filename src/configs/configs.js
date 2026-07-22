@@ -8,6 +8,7 @@ const configs = {
         articles:'articles',
         contacts:'contacts',
         projects:'projects',
+        settings:'settings',
     },
 };
 

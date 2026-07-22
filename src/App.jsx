@@ -92,6 +92,7 @@ function Layout() {
                         <Route path="projects" element={<Projects />} />
                         <Route path="project/create" element={<CreateProject />} />
                         <Route path="project/update/:id" element={<EditProject />} />
+                        <Route path="settings" element={<AboutSettings />} />
                     </Route>
                 </Route>
                 <Route path="*" element={<Navigate to="/404" replace />} />
